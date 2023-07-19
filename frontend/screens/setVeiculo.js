@@ -23,6 +23,7 @@ export const SetVeiculo = () => {
     veiculoId, getVeiculoId,
     viagem, getViagem,
     ajuste, setAjuste,
+    setFiabilidade
   } = useContext(AuthContext);
 
   useEffect(() => {
@@ -63,7 +64,11 @@ export const SetVeiculo = () => {
       } else {
         tipo = "Rápido";
       }
-      obj.push({ veiculo: element, tempo: tempo, valor: preco, tipo, vm: element.velocidade_media_km, fiabilidade: element.factor_fiabilidade, precoBase: element.preco_base_km });
+      obj.push({ veiculo: element, tempo: tempo, 
+        valor: preco, tipo, 
+        vm: element.velocidade_media_km, fiabilidade: element.factor_fiabilidade, 
+        precoBase: element.preco_base_km,
+      });
     });
     setVeiculos(obj);
   };
@@ -94,6 +99,7 @@ export const SetVeiculo = () => {
 
     const tempoEstimado = veiculo.tempo;
     const fiabilidade = veiculo.fiabilidade;
+    setFiabilidade(fiabilidade);
     const tempoReal = calculaTempoReal(fiabilidade, tempoEstimado);
 
     const precoReal = veiculo.precoBase * tempoReal;

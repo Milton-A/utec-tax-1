@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, TextInput, TouchableHighlight,Alert } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, TextInput, TouchableHighlight, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../contexts/authProvider';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import axios from 'axios';
 
 export const OpAvaliar1 = ({ onAvaliar, onCancelar }) => {
@@ -16,7 +17,7 @@ export const OpAvaliar1 = ({ onAvaliar, onCancelar }) => {
   const formData = {
     'id_motorista': driver.idMotorista,
     'pontuacao': pontuacao,
-    'descricao': "pontuacao",
+    'descricao': descricao,
     'data_classificacao': data
   }
   const pegarData = () => {
@@ -41,7 +42,7 @@ export const OpAvaliar1 = ({ onAvaliar, onCancelar }) => {
         .catch(error => {
           console.error('Erro ao realizar Classificar:', formData);
         });
-    }else{
+    } else {
       Alert.alert('Selecione uma opção!');
     }
   }
@@ -61,61 +62,66 @@ export const OpAvaliar1 = ({ onAvaliar, onCancelar }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.perfil}>
-        <View style={styles.perfilInfo}>
-          <View style={styles.fotoperfil}></View>
-          <View style={styles.nameRating}>
-            <Text style={styles.nameperfil}>{userName.nome}</Text>
+    <KeyboardAwareScrollView contentContainerStyle={styles.container} extraScrollHeight={20}>
+      <View style={styles.container}>
+        <View style={styles.perfil}>
+          <View style={styles.perfilInfo}>
+            <View style={styles.fotoperfil}></View>
+            <View style={styles.nameRating}>
+              <Text style={styles.nameperfil}>{userName.nome}</Text>
+            </View>
           </View>
         </View>
-      </View>
-      <View>
-        <View style={styles.modelblocks}>
-          <TouchableHighlight
-            style={getModelStyle(0)}
-            onPress={() => handleModelPress(0)}
-            underlayColor="#FF0870"
-          >
-            <Text style={getModelTextStyle(0)}>0%</Text>
-          </TouchableHighlight>
-          <TouchableHighlight
-            style={getModelStyle(25)}
-            onPress={() => handleModelPress(25)}
-            underlayColor="#FF0870"
-          >
-            <Text style={getModelTextStyle(25)}>25%</Text>
-          </TouchableHighlight>
-          <TouchableHighlight
-            style={getModelStyle(50)}
-            onPress={() => handleModelPress(50)}
-            underlayColor="#FF0870"
-          >
-            <Text style={getModelTextStyle(50)}>50%</Text>
-          </TouchableHighlight>
-          <TouchableHighlight
-            style={getModelStyle(75)}
-            onPress={() => handleModelPress(75)}
-            underlayColor="#FF0870"
-          >
-            <Text style={getModelTextStyle(75)}>75%</Text>
-          </TouchableHighlight>
-          <TouchableHighlight
-            style={getModelStyle(100)}
-            onPress={() => handleModelPress(100)}
-            underlayColor="#FF0870"
-          >
-            <Text style={getModelTextStyle(100)}>100%</Text>
-          </TouchableHighlight>
+        <View>
+          <View style={styles.modelblocks}>
+            <TouchableHighlight
+              style={getModelStyle(0)}
+              onPress={() => handleModelPress(0)}
+              underlayColor="#FF0870"
+            >
+              <Text style={getModelTextStyle(0)}>0%</Text>
+            </TouchableHighlight>
+            <TouchableHighlight
+              style={getModelStyle(25)}
+              onPress={() => handleModelPress(25)}
+              underlayColor="#FF0870"
+            >
+              <Text style={getModelTextStyle(25)}>25%</Text>
+            </TouchableHighlight>
+            <TouchableHighlight
+              style={getModelStyle(50)}
+              onPress={() => handleModelPress(50)}
+              underlayColor="#FF0870"
+            >
+              <Text style={getModelTextStyle(50)}>50%</Text>
+            </TouchableHighlight>
+            <TouchableHighlight
+              style={getModelStyle(75)}
+              onPress={() => handleModelPress(75)}
+              underlayColor="#FF0870"
+            >
+              <Text style={getModelTextStyle(75)}>75%</Text>
+            </TouchableHighlight>
+            <TouchableHighlight
+              style={getModelStyle(100)}
+              onPress={() => handleModelPress(100)}
+              underlayColor="#FF0870"
+            >
+              <Text style={getModelTextStyle(100)}>100%</Text>
+            </TouchableHighlight>
+          </View>
         </View>
+        <View>
+          <TextInput style={styles.input}
+            placeholder='Mensagem...'
+            onChangeText={(text) => setDescricao(text)}
+          />
+        </View>
+        <TouchableOpacity style={styles.avaliar} onPress={handleAvaliar}>
+          <Text style={styles.buttonText}>Avaliar</Text>
+        </TouchableOpacity>
       </View>
-      <View>
-        <TextInput style={styles.input} placeholder='Mensagem...' />
-      </View>
-      <TouchableOpacity style={styles.avaliar} onPress={handleAvaliar}>
-        <Text style={styles.buttonText}>Avaliar</Text>
-      </TouchableOpacity>
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 

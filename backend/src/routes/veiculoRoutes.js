@@ -32,13 +32,13 @@ router.put('/:id', async (req, res) => {
   try {
     const veiculo = await veiculoController.updateVeiculo(req.params.id, req.body);
     if (!veiculo) return res.status(404).json({ message: 'Veiculo não encontrado' });
-    res.json(veiculo);
+    return res.json(veiculo);
   }catch(err) {
     console.log(err);
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
   try {
     const result = await veiculoController.deleteVeiculo(req.params.id);
     if (!result) return res.status(404).json({ message: 'Veiculo não encontrado' });

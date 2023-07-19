@@ -5,6 +5,7 @@ import { AuthContext } from '../contexts/authProvider';
 import { Octicons } from '@expo/vector-icons';
 import Images from '../assets/image/22.jpg';
 import axios from 'axios';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export const SetMotorista = () => {
   const {
@@ -61,43 +62,43 @@ export const SetMotorista = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.perfil}>
-        <View style={styles.perfilInfo}>
-          <View style={styles.fotoperfil}><Image style={styles.fotoperfil} source={{ uri: 'https://img.freepik.com/fotos-gratis/retrato-de-jovem-com-oculos-escuros_273609-14360.jpg?w=740&t=st=1688439317~exp=1688439917~hmac=b8110255d638074ba349ed300b91308e236dcb400f35cfaae9685f5d216816cf' }} /></View>
-          <View style={styles.nameRating}>
-            <Text style={styles.nameperfil}>{utilizador.nome}</Text>
-            <View style={styles.ratingContainer}>
-              <Octicons name="star-fill" size={14} color="orange" />
-              <Text style={styles.ratingNum}> {motorista.classificacao}</Text>
+    <KeyboardAwareScrollView contentContainerStyle={styles.container} extraScrollHeight={20}>
+        <View style={styles.perfil}>
+          <View style={styles.perfilInfo}>
+            <View style={styles.fotoperfil}><Image style={styles.fotoperfil} source={{ uri: 'https://img.freepik.com/fotos-gratis/retrato-de-jovem-com-oculos-escuros_273609-14360.jpg?w=740&t=st=1688439317~exp=1688439917~hmac=b8110255d638074ba349ed300b91308e236dcb400f35cfaae9685f5d216816cf' }} /></View>
+            <View style={styles.nameRating}>
+              <Text style={styles.nameperfil}>{utilizador.nome}</Text>
+              <View style={styles.ratingContainer}>
+                <Octicons name="star-fill" size={14} color="orange" />
+                <Text style={styles.ratingNum}> {motorista.classificacao}</Text>
+              </View>
+            </View>
+          </View>
+          <View>
+            <View style={styles.model}>
+              <Text style={styles.modelText}>Fiabilidade: {motorista.grau_cumprimento_horario}</Text>
+            </View>
+            <View style={styles.model}>
+              <Text style={styles.modelText}>Preco Final: {viagem.custoReal}</Text>
             </View>
           </View>
         </View>
-        <View>
-          <View style={styles.model}>
-            <Text style={styles.modelText}>Fiabilidade: {motorista.grau_cumprimento_horario}</Text>
+        <View style={styles.modeloveiculo}>
+          {ajuste ? <View>
+            <Text style={styles.modelText}>Valor a Pagar</Text>
+            <TextInput
+              style={styles.input}
+              keyboardType="numeric"
+              placeholder="Digite o novo valor"
+            //onChangeText={(text) => setNome(text)}
+            />
           </View>
-          <View style={styles.model}>
-            <Text style={styles.modelText}>Preco Final: {viagem.custoReal}</Text>
-          </View>
+            : null}
         </View>
-      </View>
-      <View style={styles.modeloveiculo}>
-        {ajuste? <View>
-          <Text style={styles.modelText}>Valor a Pagar</Text>
-          <TextInput
-            style={styles.input}
-            keyboardType="numeric"
-            placeholder="Digite seu nome"
-          //onChangeText={(text) => setNome(text)}
-          />
-        </View>
-        :null}
-      </View>
-      <TouchableOpacity style={styles.confirm} onPress={handleModelPress}>
-        <Text style={styles.buttonText}>Confirmar</Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity style={styles.confirm} onPress={handleModelPress}>
+          <Text style={styles.buttonText}>Confirmar</Text>
+        </TouchableOpacity>
+    </KeyboardAwareScrollView>
   );
 };
 

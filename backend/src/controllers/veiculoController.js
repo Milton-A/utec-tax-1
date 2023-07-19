@@ -19,8 +19,8 @@ async function createVeiculo(veiculo) {
 
 async function updateVeiculo(id, veiculo) {
   return await prisma.veiculo.update({
-    where: { id_veiculo: Number(id) },
-    data: { ...veiculo },
+    where: {id_veiculo: Number(id) },
+    data: veiculo,
   });
 }
 

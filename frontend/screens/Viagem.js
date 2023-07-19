@@ -14,11 +14,13 @@ export const Viagem = () => {
     driverCoordinates,
     getDriver,
     driver,
-    IP, 
+    IP,
     viagem,
     user1,
     veiculoId,
     cliente,
+    fiabilidade,
+    motorista
   } = useContext(AuthContext);
   const navigation = useNavigation();
   const [distance, setDistance] = useState(0);
@@ -49,15 +51,30 @@ export const Viagem = () => {
       tempo_real: parseFloat(viagem.tempoReal),
       preco_pago: parseFloat(viagem.custoReal),
       id_cliente: cliente.id_cliente,
-      id_motorista: driver.idMotorista ,
-      id_veiculo:veiculoId.idVeiculo,
+      id_motorista: driver.idMotorista,
+      id_veiculo: veiculoId.idVeiculo,
     }
 
-    console.log(veiculoId.idVeiculo)
+    function calcularTempoAjustado() {
+      return fatorFiabilidade = 0.8 + Math.random() * 0.4;
+    }
+
+    const formDataVeiculo = {
+      coordenadas_origem_x: destination.latitude,
+      coordenadas_origem_y: destination.longitude
+    }
     
     axios.post(IP + '/viagem/', formData)
       .then(response => {
         Alert.alert('Viagem realizada com sucesso!');
+        console.log(veiculoId.idVeiculo)
+        axios.post(IP + '/veiculo/' + veiculoId.idVeiculo, formDataVeiculo)
+          .then(response => {
+            Alert.alert('Veiculo actualizado com sucesso!');
+          })
+          .catch(error => {
+            console.error('Erro ao actualizar dados do Veiculo:', error);
+          });
       })
       .catch(error => {
         console.error('Erro ao realizar cadastro:', error);
@@ -81,11 +98,18 @@ export const Viagem = () => {
     <View style={styles.container}>
       <Text>Distância até ao destino</Text>
       <Text style={styles.Text}>Distância: {distance.toFixed(2)} km</Text>
-      {statusViagem ? <TouchableOpacity style={styles.avaliar} onPress={handleAvaliar}>
-        <Text style={styles.buttonText}>Avaliar</Text>
-      </TouchableOpacity> : <TouchableOpacity style={styles.confirm} onPress={handleConfirmClick}>
-        <Text style={styles.buttonText}>Confirmar</Text>
-      </TouchableOpacity>}
+      {statusViagem ?
+        <View>
+          <TouchableOpacity style={styles.avaliar} onPress={handleAvaliar}>
+            <Text style={styles.buttonText}>Avaliar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.confirm} onPress={()=>{navigation.navigate('Mapa')}}>
+            <Text style={styles.buttonText}>Confirmar</Text>
+          </TouchableOpacity>
+        </View>
+        : <TouchableOpacity style={styles.confirm} onPress={handleConfirmClick}>
+          <Text style={styles.buttonText}>Confirmar</Text>
+        </TouchableOpacity>}
     </View>
   );
 };
@@ -112,6 +136,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 25,
     backgroundColor: '#FF0870',
+    marginTop: 10,
   },
   avaliar: {
     alignItems: 'center',

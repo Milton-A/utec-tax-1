@@ -13,7 +13,7 @@ function AuthProvider({ children }) {
   const [posVeiculo, setPosVeiculo] = useState(0);
   const [driver, setDriver] = useState({ idMotorista: 0 });
   const [veiculoId, setVeiculoId] = useState({ idVeiculo: 0 });
-  const [viagem, setViagem] = useState({ tempoEstimado: 0, tempoReal: 0, custoReal: 0.0, custoEstimado: 0.0 });
+  const [viagem, setViagem] = useState({ tempoEstimado: 0, tempoReal: 0, custoReal: 0.0, custoEstimado: 0.0});
   const [userName, setUserName] = useState("");
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
@@ -21,6 +21,7 @@ function AuthProvider({ children }) {
   const [ajuste, setAjuste] = useState(false);
   const [motorista, setMotorista] = useState({});
   const [cliente, setCliente] = useState({});
+  const [fiabilidade, setFiabilidade] = useState(0.0);
 
   const getDriver = (id) => {
     setDriver({ idMotorista: id })
@@ -55,7 +56,7 @@ function AuthProvider({ children }) {
         driver,
         user1,
         getUser1,
-        IP: 'http://192.168.1.16:3000',
+        IP: 'http://172.20.10.7:3000',
         setOriginCoordinates,
         setDestinationCoordinates,
         setDriverCoordinates,
@@ -75,6 +76,7 @@ function AuthProvider({ children }) {
         cliente, setCliente,
         motorista, setMotorista,
         usuario, setUsuario,
+        fiabilidade, setFiabilidade
       }}
     >
       {children}
