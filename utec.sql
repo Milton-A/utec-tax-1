@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 17/07/2023 às 16:00
+-- Tempo de geração: 19/07/2023 às 08:59
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -34,6 +34,14 @@ CREATE TABLE `classificacaomotorista` (
   `data_classificacao` date NOT NULL,
   `descricao` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `classificacaomotorista`
+--
+
+INSERT INTO `classificacaomotorista` (`id`, `id_motorista`, `pontuacao`, `data_classificacao`, `descricao`) VALUES
+(1, 14, 25, '2023-07-19', 'pontuacao'),
+(2, 14, 25, '2023-07-19', 'pontuacao');
 
 -- --------------------------------------------------------
 
@@ -134,7 +142,18 @@ INSERT INTO `motorista` (`id_motorista`, `id_utilizador`, `id_empresa`, `grau_cu
 (2, 3, 1, 10, 50, 120, 0),
 (3, 5, 1, 15, 75, 150, 0),
 (4, 6, 1, 12, 25, 150, 0),
-(5, 7, 1, 50, 30, 50, 0);
+(5, 7, 1, 50, 30, 50, 0),
+(6, 36, 1, 0, 0, 0, 1),
+(7, 39, 1, 0, 0, 0, 1),
+(8, 41, 1, 0, 0, 0, 1),
+(9, 42, 1, 0, 0, 0, 1),
+(10, 46, 1, 0, 0, 0, 1),
+(11, 47, 1, 0, 0, 0, 1),
+(12, 48, 1, 0, 0, 0, 1),
+(13, 49, 1, 0, 0, 0, 1),
+(14, 50, 1, 0, 0, 0, 1),
+(15, 51, 1, 0, 0, 0, 1),
+(16, 52, 1, 0, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -166,7 +185,18 @@ INSERT INTO `utilizador` (`id_utilizador`, `nome`, `email`, `password`, `morada`
 (8, 'António Silva', 'antoniosilva@gmail.com', '123', 'Xpto', '2000-09-01'),
 (15, 'Hh', 'Bg@gmail.com', '123', 'Hdhhd', '1998-03-21'),
 (22, 'Ggg', 'Hhgv@gmail.com', '123', 'Babb’s', '2012-12-12'),
-(29, 'HHS', 'Bbnn@gmail.com', '123', 'Hunks', '2003-07-18');
+(29, 'HHS', 'Bbnn@gmail.com', '123', 'Hunks', '2003-07-18'),
+(36, 'Fred', 'fred@gmail.com', '123', 'Belas u', '2015-12-14'),
+(39, 'Fred', 'Frefso@gmail.com', '123', 'Não sei o', '2012-12-12'),
+(41, 'Mm', 'Mm@gmail.com', '123', 'Hgndnd', '2012-12-12'),
+(42, 'Cranberries', 'Cranberries@gmail.com', '123', 'Hdhhd', '2010-09-09'),
+(46, 'Cranberries', 'Cran@gmail.com', '123', 'Hdhhd', '2010-09-09'),
+(47, 'Gg', 'Afs@gmail.com', '123', 'Hgjjs', '2012-12-12'),
+(48, 'Testeveiculo', 'Teste@gmail.com', '123', 'Hgjjs', '2020-06-14'),
+(49, 'Testeveiculo2', 'Teste2@gmail.com', '123', 'Hgjjs', '2020-06-14'),
+(50, 'Testeveiculo3', 'Teste3@gmail.com', '123', 'Hgjjs', '2020-06-14'),
+(51, 'Testeveiculo4', 'Teste5@gmail.com', '123', 'Hgjjs', '2020-06-14'),
+(52, 'Teste5', 'teste6@gmail.com', '123', 'Tubs', '2012-12-11');
 
 -- --------------------------------------------------------
 
@@ -176,13 +206,12 @@ INSERT INTO `utilizador` (`id_utilizador`, `nome`, `email`, `password`, `morada`
 
 CREATE TABLE `veiculo` (
   `id_veiculo` int(11) NOT NULL,
-  `tipo_veiculo` enum('L','P') DEFAULT NULL,
+  `tipo_veiculo` varchar(50) DEFAULT NULL,
   `id_empresa` int(11) DEFAULT NULL,
   `id_motorista` int(11) DEFAULT NULL,
   `velocidade_media_km` float DEFAULT NULL,
   `coordenadas_origem_x` int(11) DEFAULT NULL,
   `coordenadas_origem_y` int(11) DEFAULT NULL,
-  `km` float DEFAULT NULL,
   `preco_base_km` decimal(10,2) DEFAULT NULL,
   `factor_fiabilidade` float DEFAULT NULL,
   `id_marca` int(11) DEFAULT NULL
@@ -192,12 +221,15 @@ CREATE TABLE `veiculo` (
 -- Despejando dados para a tabela `veiculo`
 --
 
-INSERT INTO `veiculo` (`id_veiculo`, `tipo_veiculo`, `id_empresa`, `id_motorista`, `velocidade_media_km`, `coordenadas_origem_x`, `coordenadas_origem_y`, `km`, `preco_base_km`, `factor_fiabilidade`, `id_marca`) VALUES
-(2, 'L', 1, 1, 20, 9, 13, 250, 500.00, 12, 1),
-(3, 'P', 1, 2, 15, 8, 13, 300, 300.00, 1, 2),
-(4, 'P', 1, 3, 16, 9, 14, 125, 200.00, 2, 1),
-(5, 'L', 1, 4, 13, 12, 11, 350, 400.00, 1, 2),
-(6, 'L', 1, 5, 22, 8, 14, 200, 150.00, 22, 1);
+INSERT INTO `veiculo` (`id_veiculo`, `tipo_veiculo`, `id_empresa`, `id_motorista`, `velocidade_media_km`, `coordenadas_origem_x`, `coordenadas_origem_y`, `preco_base_km`, `factor_fiabilidade`, `id_marca`) VALUES
+(2, 'L', 1, 1, 5, 9, 13, 150.00, 50, 1),
+(3, 'P', 1, 2, 7, 8, 13, 200.00, 80, 2),
+(4, 'P', 1, 3, 8, 9, 14, 250.00, 90, 1),
+(5, 'L', 1, 4, 6, 12, 11, 300.00, 95, 2),
+(6, 'L', 1, 5, 8, 8, 14, 150.00, 25, 1),
+(7, 'Carrinhas de 9 lugares', 1, 14, 7, -9, 13, 250.00, 75, 1),
+(8, 'Carrinhas de 9 lugares', 1, 15, 7, -9, 13, 250.00, 70, 1),
+(9, 'Carros Ligeiros', 1, 16, 8, -9, 13, 300.00, 10, 1);
 
 -- --------------------------------------------------------
 
@@ -210,16 +242,28 @@ CREATE TABLE `viagem` (
   `id_cliente` int(11) NOT NULL,
   `id_motorista` int(11) DEFAULT NULL,
   `id_veiculo` int(11) DEFAULT NULL,
-  `coordenadas_origem_x` int(11) DEFAULT NULL,
-  `coordenadas_origem_y` int(11) DEFAULT NULL,
-  `coordenadas_destino_x` int(11) DEFAULT NULL,
-  `coordenadas_destino_y` int(11) DEFAULT NULL,
+  `coordenadas_origem_x` float DEFAULT NULL,
+  `coordenadas_origem_y` float DEFAULT NULL,
+  `coordenadas_destino_x` float DEFAULT NULL,
+  `coordenadas_destino_y` float DEFAULT NULL,
   `custo_estimado` decimal(10,2) DEFAULT NULL,
   `custo_real` decimal(10,2) DEFAULT NULL,
-  `tempo_estimado` int(11) DEFAULT NULL,
+  `tempo_estimado` float DEFAULT NULL,
   `preco_pago` float DEFAULT NULL,
-  `tempo_real` int(11) DEFAULT NULL
+  `tempo_real` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `viagem`
+--
+
+INSERT INTO `viagem` (`id_viagem`, `id_cliente`, `id_motorista`, `id_veiculo`, `coordenadas_origem_x`, `coordenadas_origem_y`, `coordenadas_destino_x`, `coordenadas_destino_y`, `custo_estimado`, `custo_real`, `tempo_estimado`, `preco_pago`, `tempo_real`) VALUES
+(1, 1, 15, 8, -8, 13, -9, 13, 1500.00, 2000.00, 8, 2000, 10),
+(2, 1, 15, 8, -8, 13, -9, 13, 1500.00, 2000.00, 8, 2000, 10),
+(8, 1, 14, 7, -8.95417, 13.1743, -8.92407, 13.1862, 7820.00, 187.50, 4.47, 187.5, 0.75),
+(9, 1, 14, 7, -8.95417, 13.1743, -8.92407, 13.1862, 7820.00, 187.50, 4.47, 187.5, 0.75),
+(10, 1, 14, 7, -8.95417, 13.1743, -8.92407, 13.1862, 7820.00, 187.50, 4.47, 187.5, 0.75),
+(11, 1, 14, 7, -8.95417, 13.1743, -8.92407, 13.1862, 7820.00, 187.50, 4.47, 187.5, 0.75);
 
 --
 -- Índices para tabelas despejadas
@@ -299,7 +343,7 @@ ALTER TABLE `viagem`
 -- AUTO_INCREMENT de tabela `classificacaomotorista`
 --
 ALTER TABLE `classificacaomotorista`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `cliente`
@@ -329,25 +373,25 @@ ALTER TABLE `marca`
 -- AUTO_INCREMENT de tabela `motorista`
 --
 ALTER TABLE `motorista`
-  MODIFY `id_motorista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_motorista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de tabela `utilizador`
 --
 ALTER TABLE `utilizador`
-  MODIFY `id_utilizador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id_utilizador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT de tabela `veiculo`
 --
 ALTER TABLE `veiculo`
-  MODIFY `id_veiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_veiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `viagem`
 --
 ALTER TABLE `viagem`
-  MODIFY `id_viagem` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_viagem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restrições para tabelas despejadas
